@@ -144,7 +144,7 @@ def get_plugin(cuda_file):
                 print('Compiling... ', end='', flush=True)
             with tempfile.TemporaryDirectory() as tmp_dir:
                 tmp_file = os.path.join(tmp_dir, cuda_file_name + '_tmp' + bin_file_ext)
-                _run_cmd(nvcc_cmd + ' "%s" --shared -o "%s" --keep --keep-dir "%s"' % (cuda_file, tmp_file, tmp_dir))
+                _run_cmd(nvcc_cmd + ' "%s" --shared -o "%s" --keep -std=c++11 --keep-dir "%s"' % (cuda_file, tmp_file, tmp_dir))
                 os.makedirs(cuda_cache_path, exist_ok=True)
                 intermediate_file = os.path.join(cuda_cache_path, cuda_file_name + '_' + uuid.uuid4().hex + '_tmp' + bin_file_ext)
                 shutil.copyfile(tmp_file, intermediate_file)
